@@ -2,14 +2,13 @@ const elementById = (id) => document.getElementById(id);
 ;
 const handleSearch = () => {
   const keyword = elementById("keyword");
-    keyword.textContent='';
     albumContainer.textContent='';
     artistContainer.textContent='';
-
   const url = `https://theaudiodb.com/api/v1/json/2/search.php?s=${keyword.value}`;
   fetch(url)
     .then((res) => res.json())
     .then((data) => showArtists(data));
+    keyword.value='';
 };
 const artistContainer = elementById("artists");
 const showArtists = (data) => {
