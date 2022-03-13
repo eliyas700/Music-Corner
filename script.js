@@ -2,6 +2,7 @@ const elementById = (id) => document.getElementById(id);
 ;
 const handleSearch = () => {
   const keyword = elementById("keyword");
+    keyword.textContent='';
   const url = `https://theaudiodb.com/api/v1/json/2/search.php?s=${keyword.value}`;
   console.log(url)
   fetch(url)
@@ -11,6 +12,7 @@ const handleSearch = () => {
 
 const showArtists = (data) => {
   const artistContainer = elementById("artists");
+  artistContainer.textContent=''
   data?.artists?.forEach((artist) => {
     console.log(artist)
     const div = document.createElement("div");
@@ -39,6 +41,7 @@ const showArtists = (data) => {
 };
 
 const fetchAlbums = (id) => {
+  console.log(id)
   const url = `https://theaudiodb.com/api/v1/json/2/album.php?i=${id}`;
   fetch(url)
     .then((res) => res.json())
@@ -48,9 +51,9 @@ const fetchAlbums = (id) => {
 };
 
 const showAlbum = (data) => {
-  console.log(data)
   const albumContainer = elementById("albums");
-  data.forEach((item) => {
+  albumContainer.textContent=''
+  data.album ? data.album.forEach((item) => {
     const div = document.createElement("div");
     div.classList.add("album");
     div.innerHTML = `
@@ -66,5 +69,5 @@ const showAlbum = (data) => {
       `;
 
     albumContainer.appendChild(div);
-  });
+  }) : alert('No Album Found')
 };
